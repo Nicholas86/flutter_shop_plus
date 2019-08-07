@@ -32,8 +32,6 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   void initState() {
     super.initState();
     print('页面加载');
-    // 获取火爆专区
-//    _getGotGoods();
   }
 
   @override
@@ -495,43 +493,5 @@ class FloorContent extends StatelessWidget {
     );
   }
 
-}
-
-// 火爆专区
-class HotGoods extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return HotGoodsState();
-  }
-}
-
-class HotGoodsState extends State<HotGoods> {
-//  final String picture_addess;
-//
-//  HotGoodsState({Key key, this.picture_addess}):super(key : key);
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-//    var formPage={'page': page};
-//    await  request('homePageBelowConten',formData:formPage).then((val){
-//      var data=json.decode(val.toString());
-//      List<Map> newGoodsList = (data['data'] as List ).cast();
-//      setState(() {
-//        hotGoodsList.addAll(newGoodsList);
-//        page++;
-//      });
-//    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-
-    );
-  }
 }
 
