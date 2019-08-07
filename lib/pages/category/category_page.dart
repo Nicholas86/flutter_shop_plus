@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/service/service_method.dart';
 import 'package:flutter_shop/pages/category/category.dart';
+import 'package:flutter_shop/pages/category/goods.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ class _CategoryPageState extends State<CategoryPage> {
             Column(
               children: <Widget>[
                 RightCategoryNav(), // 右侧
+                CategoryGoodsList(), // 商品列表
               ],
             )
           ],
@@ -205,4 +207,134 @@ class RightCategoryNavState extends State<RightCategoryNav> {
     );
   }
 
+//  //得到商品列表数据
+//  void _getGoodList(context,String categorySubId) {
+//
+//    var data={
+//      'categoryId':Provide.value<ChildCategory>(context).categoryId,
+//      'categorySubId':categorySubId,
+//      'page':1
+//    };
+//
+//    request('getMallGoods',formData:data ).then((val){
+//      var  data = json.decode(val.toString());
+//      CategoryGoodsListModel goodsList=  CategoryGoodsListModel.fromJson(data);
+//      // Provide.value<CategoryGoodsList>(context).getGoodsList(goodsList.data);
+//      if(goodsList.data==null){
+//        Provide.value<CategoryGoodsListProvide>(context).getGoodsList([]);
+//      }else{
+//        Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+//
+//      }
+//    });
+//  }
+
+}
+
+// 商品列表
+class CategoryGoodsList extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _CategoryGoodsListState();
+  }
+}
+
+class _CategoryGoodsListState extends State<CategoryGoodsList> {
+
+  List list = [];
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+        width: ScreenUtil().setWidth(570),
+        height: ScreenUtil().setHeight(1000),
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index){
+            return _listWidget(index);
+          },
+        ),
+    );
+  }
+
+  Widget _goodsImage(int index) {
+    return Container(
+      width: ScreenUtil().setWidth(200),
+      child: Image.network(
+        list[index].image,
+      ),
+    );
+  }
+
+  Widget _goodsName(int index){
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      width: ScreenUtil().setWidth(270),
+      child: Text(
+        list[index].goodsName,
+        maxLines: 2, // 2行
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: ScreenUtil().setSp(28),
+        ),
+      ),
+    );
+  }
+
+  Widget _goodsPrice(int index){
+    return Container(
+      width: ScreenUtil().setWidth(270),
+      margin: EdgeInsets.only(top: 20),
+      child: Row(
+        children: <Widget>[
+          Text(
+            '价格: ¥${list[index].presentPrice}',
+            style: TextStyle(
+              color: Colors.pink,
+              fontSize: ScreenUtil().setSp(30)
+            ),
+          ),
+          Text(
+            '¥${list[index].oriPrice}',
+            style: TextStyle(
+                color: Colors.black26,
+                fontSize: ScreenUtil().setSp(30),
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _listWidget(int index) {
+    return InkWell(
+      onTap: (){
+        print('点击');
+      },
+      child: Container(
+        padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(width: 1, color: Colors.black12),
+          )
+        ),
+        child: Row(
+          children: <Widget>[
+            _goodsImage(index),
+            Column(
+              children: <Widget>[
+                _goodsName(index),
+                _goodsPrice(index),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
