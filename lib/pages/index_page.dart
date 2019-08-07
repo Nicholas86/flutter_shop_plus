@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './cart_page.dart';
-import './category_page.dart';
+import 'package:flutter_shop/pages/category/category_page.dart';
 import './home_page.dart';
 import './index_page.dart';
 import './member_page.dart';
