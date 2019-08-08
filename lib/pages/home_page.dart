@@ -155,7 +155,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
           },
           child: Container(
             width: ScreenUtil().setWidth(372), // 最外层的容器宽度
-            color: Colors.yellow,
+            color: Colors.white,
             padding: EdgeInsets.all(5.0), // 内边距
             margin: EdgeInsets.only(bottom: 3.0),
             child: Column(
