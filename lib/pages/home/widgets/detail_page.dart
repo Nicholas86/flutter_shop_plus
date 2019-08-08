@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/provide/detail_info.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_shop/provide/child_category.dart';
+import 'package:flutter_shop/pages/home/views/detail_top.dart';
 
 class DetailsPage extends StatelessWidget {
   final String goodsId;
@@ -21,24 +21,27 @@ class DetailsPage extends StatelessWidget {
           ),
           title: Text('商品详细页'),
         ),
-        body: Center(
-          child: Text("${Provider.of<ChildCategory>(context).noMoreText}"), //1
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-//            Provider.of<DetailProvider>(context, listen: false).getGoodsInfo(goodsId);
-          },
-        child: Icon(Icons.add),
-      ),
-    );
+        body:FutureBuilder(
+          future: _getDetailInfo(context) ,
+          builder: (context,snapshot){
+            if(snapshot.hasData){
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    Top(),
+                  ]
+                )
+              );
+            }else{
+              return Text('加载中........');
+            }
+        })
+      );
   }
 
   Future _getDetailInfo(BuildContext context) async {
-    print('加载完成---------');
 
-//    await Provider.of<DetailProvider>(context).getGoodsInfo(goodsId);
-
-    await Provider.of<DetailProvider>(context, listen: false).getGoodsInfo(goodsId);
+    await Provider.of<DetailProvider>(context).getGoodsInfo(goodsId);
 
     print('加载完成');
     return '完成加载';

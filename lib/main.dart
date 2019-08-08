@@ -24,43 +24,23 @@ class MyApp extends StatelessWidget {
     Routers.configureRouters(router);
     Application.router = router;
 
-    return Container(
-      child: MaterialApp(
-        title: '百姓生活+',
-        // debugShowCheckedModeBanner: false, /// debug模式
-        onGenerateRoute: Application.router.generator, // 配置路由
-        theme: ThemeData( /// 主题
-          primarySwatch: Colors.pink,
-        ),
-        home: MultiProvider(providers: [ // 管理多个状态
-            ChangeNotifierProvider(builder: (_) => ChildCategory()), // 分类
-            ChangeNotifierProvider(builder: (_) => GoodsListProvider()), // 商品列表
-            ChangeNotifierProvider(builder: (_) => DetailProvider()), // 商品详情
-          ],
-          child: IndexPage(),
-        ),
-      ),
-    );
-
-
-    /*
     return MultiProvider(
-      providers: [ // 全局注册状态管理器
-       ChangeNotifierProvider(builder: (_) => ChildCategory()),
-        ChangeNotifierProvider(builder: (_) => GoodsListProvide()),
+      providers: [ // 全局注册状态管理器, 所有widget都可以接收到值, 包括子widget。 重点
+        ChangeNotifierProvider<ChildCategory>(builder: (_) => ChildCategory()), // 分类
+        ChangeNotifierProvider<GoodsListProvider>(builder: (_) => GoodsListProvider()), // 商品列表
+        ChangeNotifierProvider<DetailProvider>(builder: (_) => DetailProvider()), // 商品详情
      ],
       child: Container(
         child: MaterialApp(
-          title: 'Test',
+          title: '百姓生活+',
           //去掉DEBUG字样
-          debugShowCheckedModeBanner: false,
+          // debugShowCheckedModeBanner: false,
           //设置主题
           theme: ThemeData(primaryColor: Colors.pink),
           home: IndexPage(),
         ),
       ),
     );
-    */
 
   }
 }
