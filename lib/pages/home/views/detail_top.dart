@@ -21,7 +21,8 @@ class Top extends StatelessWidget{
                 children: <Widget>[
                   _goodsImage(goodsInfo.image1),
                   _goodsName(goodsInfo.goodsName),
-                  _goodsNumber(goodsInfo.goodsSerialNumber)
+                  _goodsNumber(goodsInfo.goodsSerialNumber),
+                  _goodsPrice(goodsInfo.presentPrice,goodsInfo.oriPrice)
                 ],
               ),
             );
@@ -68,6 +69,29 @@ class Top extends StatelessWidget{
     );
   }
 
-  // 价格
+  // 商品价格方法
 
+  Widget _goodsPrice(presentPrice,oriPrice){
+
+    return  Container(
+              width: ScreenUtil().setWidth(730),
+              padding: EdgeInsets.only(left:15.0),
+              margin: EdgeInsets.only(top:8.0),
+              child: Row(
+              children: <Widget>[
+                    Text(
+                       '￥${presentPrice}',
+                      style: TextStyle(
+                      color:Colors.pinkAccent,
+                    fontSize: ScreenUtil().setSp(40),
+                    ),),
+                   Text(
+                      '市场价:￥${oriPrice}',
+                        style: TextStyle(
+                        color: Colors.black26,
+                   decoration: TextDecoration.lineThrough
+                    ),)
+              ],),
+            );
+    }
 }

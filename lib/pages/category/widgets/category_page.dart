@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_shop/provide/child_category.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryPage extends StatefulWidget {
   _CategoryPageState createState() => _CategoryPageState();
@@ -451,15 +451,15 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
         // 发送提示信息
         Provider.of<ChildCategory>(context, listen: false).changeNoMoreText('没有更多数据');
         // 显示toast信息
-        Fluttertoast.showToast(
-            msg: "已经到到底了",
-            toastLength: Toast.LENGTH_SHORT, // 插件大小
-            gravity: ToastGravity.CENTER, // 提示位置
-            timeInSecForIos: 1, //
-            backgroundColor: Colors.pink,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
+//        Fluttertoast.showToast(
+//            msg: "已经到到底了",
+//            toastLength: Toast.LENGTH_SHORT, // 插件大小
+//            gravity: ToastGravity.CENTER, // 提示位置
+//            timeInSecForIos: 1, //
+//            backgroundColor: Colors.pink,
+//            textColor: Colors.white,
+//            fontSize: 16.0
+//        );
       } else {
         var goodsReals = goods.data as List;
         // 发送值

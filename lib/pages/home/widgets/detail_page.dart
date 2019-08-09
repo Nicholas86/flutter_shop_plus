@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/provide/detail_info.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_shop/pages/home/views/detail_top.dart';
+import 'package:flutter_shop/pages/home/views/detail-explain.dart';
+import 'package:flutter_shop/pages/home/views/detail_tabbar.dart';
+import 'package:flutter_shop/pages/home/views/detail_web.dart';
+import 'package:flutter_shop/pages/home/views/detail_bottom.dart';
 
 class DetailsPage extends StatelessWidget {
   final String goodsId;
@@ -25,13 +29,26 @@ class DetailsPage extends StatelessWidget {
           future: _getDetailInfo(context) ,
           builder: (context,snapshot){
             if(snapshot.hasData){
-              return Container(
-                child: Column(
-                  children: <Widget>[
-                    Top(),
-                  ]
-                )
+              return Stack(
+                children: <Widget>[
+                      Container(
+                          child: ListView( // 用listView的好处是不会溢出
+                        children: <Widget>[
+                              Top(),
+                              Explain(),
+                              Tabbar(),
+                             Web(),
+                        ]
+                          )
+                        ),
+                  Positioned(
+                      bottom: 0,
+                    left: 0,
+                    child: Bottom(),
+                  ),
+                ],
               );
+
             }else{
               return Text('加载中........');
             }
@@ -39,6 +56,7 @@ class DetailsPage extends StatelessWidget {
       );
   }
 
+  // 请求数据
   Future _getDetailInfo(BuildContext context) async {
 
     await Provider.of<DetailProvider>(context).getGoodsInfo(goodsId);
