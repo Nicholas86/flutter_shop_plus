@@ -9,7 +9,6 @@ import 'package:flutter_shop/pages/cart/views/bottom.dart';
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold (
         appBar: AppBar(
           title: Text(
@@ -34,8 +33,7 @@ class CartPage extends StatelessWidget {
                 );
 
               }else {
-
-                return Text('正在加载中。。。');
+                return CircularProgressIndicator();
               }
             },
         ),

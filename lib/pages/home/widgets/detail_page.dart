@@ -58,10 +58,7 @@ class DetailsPage extends StatelessWidget {
 
   // 请求数据
   Future _getDetailInfo(BuildContext context) async {
-
     await Provider.of<DetailProvider>(context).getGoodsInfo(goodsId);
-
-    print('加载完成');
     return '完成加载';
   }
 

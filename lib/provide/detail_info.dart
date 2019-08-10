@@ -34,7 +34,7 @@ class DetailProvider with ChangeNotifier {
     await request('getGoodDetailById', formData: formData).then((val){
       var response = json.decode(val.toString());
       detail = Detail.fromJson(response);
-      notifyListeners();
+      // notifyListeners(); // 因为外部使用FutureBuilder,出现不停打印数据的bug,所以需要注释,不通知
     });
   }
 

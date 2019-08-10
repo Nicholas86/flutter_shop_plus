@@ -26,22 +26,9 @@ class Bottom extends StatelessWidget {
       color: Colors.white,
       child: Row(
         children: <Widget>[
-          InkWell(
-            onTap: (){
-              print('左边');
-              Provider.of<CurrentIndexProvider>(context).changeCurrentIndex(2);
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: ScreenUtil().setWidth(110.0),
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.shopping_cart,
-                size: 35.0,
-                color: Colors.red,
-              ),
-            ),
-          ),
+
+          // 购物车图标
+          _icon(context),
 
           InkWell(
             onTap: () async {
@@ -66,7 +53,7 @@ class Bottom extends StatelessWidget {
           InkWell(
             onTap: () async {
               print('立即购买');
-//              await Provider.of<CartProvider>(context).remove();
+              // await Provider.of<CartProvider>(context).remove();
             },
             child: Container(
               alignment: Alignment.center,
@@ -86,4 +73,59 @@ class Bottom extends StatelessWidget {
       ),
     );
   }
+
+  Widget _icon(BuildContext context){
+
+    // 获取总数allGoodsCount
+    int allGoodsCount = Provider.of<CartProvider>(context).allGoodsCount;
+
+    print('购物车图标, 购物车商品数量: ${allGoodsCount}');
+    return Stack(
+      children: <Widget>[
+        _cart(context),
+        Positioned( // 小气泡
+          top: 0.0,
+          right: 10.0,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(6.0, 3, 6, 3),
+            decoration: BoxDecoration( // 画圆圈
+              color: Colors.pink,
+              border: Border.all(
+                width: 2,
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Text(
+              '${allGoodsCount}',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: ScreenUtil().setSp(22),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+
+  }
+
+  Widget _cart(BuildContext context) {
+    return InkWell(
+      onTap: (){
+        Provider.of<CurrentIndexProvider>(context).changeCurrentIndex(2);
+        Navigator.pop(context);
+      },
+      child: Container(
+        width: ScreenUtil().setWidth(110.0),
+        alignment: Alignment.center,
+        child: Icon(
+          Icons.shopping_cart,
+          size: 35.0,
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+
 }

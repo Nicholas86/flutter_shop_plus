@@ -6,6 +6,8 @@ class Counter with ChangeNotifier {
 
   void increment() {
     _count++;
+    print('_count数据: ${_count}');
+
     notifyListeners();
   }
 }

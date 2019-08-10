@@ -25,9 +25,11 @@ class CartProvider extends ChangeNotifier {
     var temp = (cartString == null) ? [] : (json.decode(cartString.toString()));
     List<Map> tempList = (temp as List).cast();
 
+    allPrice = 0.0;
+    allGoodsCount = 0;
+
     bool isHave = false;
     int index = 0;
-
     // 循环, 判断商品是否重复
     tempList.forEach((item){ // item 是具体兑现
       if (item['goodsId'] == goodsId){
@@ -35,10 +37,17 @@ class CartProvider extends ChangeNotifier {
         carts[index].count++;
         isHave = true;
       }
+
+      // 有商品
+      if (item['isCheck']){
+        allPrice += (carts[index].price * carts[index].count);
+        allGoodsCount += carts[index].count;
+      }
+
       index++;
     });
 
-    // 判断是否有相同产品
+    // 判断没有相同产品
     if (!isHave){
       Map<String, dynamic> newGoods = {
         'goodsId': goodsId,
@@ -52,6 +61,9 @@ class CartProvider extends ChangeNotifier {
       tempList.add(newGoods);
 
       carts.add(Cart.fromJson(newGoods));
+
+      allPrice += (count * price);
+      allGoodsCount += count;
     }
 
     // 将数组转出字符串
@@ -91,6 +103,7 @@ class CartProvider extends ChangeNotifier {
 
   // 获取购物车中的商品
   getCartInfo() async {
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //获得购物车中的商品,这时候是一个字符串
     cartString = prefs.getString('cartInfo');
@@ -116,7 +129,8 @@ class CartProvider extends ChangeNotifier {
       });
     }
 
-    notifyListeners();
+    print('获取购物车中的商品成功: ${carts.length}个');
+    // notifyListeners(); // 因为外部使用FutureBuilder,出现不停打印数据的bug,所以需要注释,不通知
   }
 
   // 删除单个购物车商品
